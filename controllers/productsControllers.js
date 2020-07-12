@@ -4,12 +4,24 @@ module.exports={
   let products = [
    {
     id: 1,
-    name: "moto g"
+    name: "Beyond good and evil",
+    author: "Nietzsche"
    },
    {
     id: 2,
-    name: "moto x"
-   }
+    name: "The Stranger",
+    author: "Albert Camus"
+   },
+   {
+    id: 3,
+    name: "The world as will and representation",
+    author: "Schopenhauer"
+   },
+   {
+   id: 4,
+   name: "Sickness unto Death",
+   author: "Kierkegaard"
+  }
   ]
   res.json(products)
  },
