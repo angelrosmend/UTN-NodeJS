@@ -1,29 +1,12 @@
+const productosModel = require("../models/productosModels")
+
 module.exports={
 
- getAll:  function(req, res, next) {
-  let products = [
-   {
-    id: 1,
-    name: "Beyond good and evil",
-    author: "Nietzsche"
-   },
-   {
-    id: 2,
-    name: "The Stranger",
-    author: "Albert Camus"
-   },
-   {
-    id: 3,
-    name: "The world as will and representation",
-    author: "Schopenhauer"
-   },
-   {
-   id: 4,
-   name: "Sickness unto Death",
-   author: "Kierkegaard"
-  }
-  ]
-  res.json(products)
+ getAll: async function(req, res, next) {
+ console.log(req.query)
+
+ let products = await productosModel.find({})
+ res.json(products)
  },
 
  getById:function(req, res, next) {

@@ -10,6 +10,7 @@ var usersRouter = require('./routes/users');
 var productsRouter = require('./routes/products');
 var login = require('./routes/login');
 var signup = require('./routes/signup');
+const { mongoose } = require('./bin/mongodb')
 
 
 
