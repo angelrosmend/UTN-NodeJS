@@ -14,7 +14,9 @@ const { mongoose } = require('./bin/mongodb')
 
 
 
-var app = express();
+var app = express(); 
+
+app.set('secretkey', 'utn')
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
