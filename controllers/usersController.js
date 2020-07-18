@@ -23,7 +23,7 @@ module.exports={
    let user = await userModel.findOne({user:req.body.user})
    if(user){
     if(bcrypt.compareSync(req.body.password, user.password)){
-    const token = jwt.sign({user:user._id}, req.app.get('secretkey'),{expiresIn: '1hr'})
+    const token = jwt.sign({user:user._id}, req.app.get('secretKey'),{expiresIn: '1hr'})
     res.json({token: token})
     }else{
      res.json({mensaje: "Wrong password!"})
@@ -31,6 +31,7 @@ module.exports={
    }else{
     res.json({mensaje: "Wrong user!"})
    }
+   res.json()
   } catch(e){
    next(e)
   }

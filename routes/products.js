@@ -5,7 +5,7 @@ const productsController =require("../controllers/productsControllers")
 
 /* GET users listing. */
 
-router.get('/', productsController.getAll);
+router.get('/', (req,res,next) =>{req.app.validateUser(req,res,next)}, productsController.getAll);
 router.get('/:id', productsController.getById);
 router.post('/', productsController.create)
 router.put('/:id', productsController.update)

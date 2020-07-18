@@ -4,9 +4,10 @@ module.exports={
 
 getAll: async function(req, res, next) {
  console.log(req.query)
-
+ console.log('userToken', req.body.userToken)
  try{
   let products = await productosModel.find({})
+  res.json(products)
  } catch(e){
   next(e)
  }
@@ -17,10 +18,10 @@ getAll: async function(req, res, next) {
   console.log(req.params)
   try{
    let products = await productosModel.findById(req.params.id)
+   res.json(products)
   } catch(e){
    next(e)
   }
-  res.json(products)
  },
 
  create: async function(req, res, next) {

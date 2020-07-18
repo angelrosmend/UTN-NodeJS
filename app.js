@@ -3,6 +3,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const jwt = require('jsonwebtoken');
+require('dotenv').config()
 
 /**RUTAS */
 var indexRouter = require('./routes/index');
@@ -12,11 +14,11 @@ var login = require('./routes/login');
 var signup = require('./routes/signup');
 const { mongoose } = require('./bin/mongodb')
 
-
+console.log(process.env.SECRET_KEY)
 
 var app = express(); 
 
-app.set('secretkey', 'utn')
+app.set('secretKey', process.env.SECRET_KEY)
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -31,12 +33,23 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/products', productsRouter);
 app.use('/login', login);
 app.use('/signup', signup);
+app.use('/products', productsRouter);
 
-
-
+function validateUser(req, res, next){
+  console.log(req.app.get('secretKey'))
+  jwt.verify(req.headers['x-access-token'], req.app.get('secretKey'), function(err,decoded){
+    if(err){
+      res.json({messaje:err.message})
+    }else{
+      console.log(decoded)
+      req.body.userToken = decoded
+      next();
+    }
+  })
+}
+app.validateUser = validateUser;
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
