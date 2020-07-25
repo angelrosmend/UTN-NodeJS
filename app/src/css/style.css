@@ -1,0 +1,225 @@
+:root{
+ --mainDark: rgba(36, 29, 29, 0.795);
+ --mainRed: #bc2036;
+ --lightRed: #ff3751;
+ --mainGrey: rgb(230, 225, 225);
+ --mainWhite: #fff;
+}
+
+.navbar{
+ top: 0;
+ position: sticky;
+ display: flex;
+ width: 100%;
+ height: 10vh;
+ align-items: center;
+ justify-content: center;
+ background-color: var(--mainRed);
+ box-shadow: 0 5px 2px -2px rgba(0,0,0,.2);
+}
+
+
+.logo{
+ flex: 0.33;
+ display: flex;
+ flex-direction: row;
+}
+
+.nav{
+ flex: 1;
+ display: flex;
+ flex-direction: row;
+ justify-content: flex-end;
+}
+
+.nav-links{
+ width: 75%;
+ display: flex;
+ justify-content: space-around;
+ list-style: none;
+}
+
+.nav-link{
+ display: flex;
+ color: white;
+ align-items: center;
+ text-decoration: none;
+ font-size: 14.5px;
+ list-style: none;
+ font-weight: bold;
+ text-transform: uppercase;
+}
+.nav-link:hover {
+ color: #ff3751;
+}
+
+/*////////////////////////////
+////////REGISTRO////////////
+////////////////////////////*/
+.container-sign-up{
+ width: 500px;
+ height: 350px;
+ background:rgba(36, 29, 29, 0.795);
+ margin: 70px auto 100px auto;
+ padding: 15px auto 20px auto;
+ border-radius: 10px;
+ box-shadow: 5px 5px 10px black;
+ text-align: center;
+ text-transform: uppercase;
+}
+
+.header-titulo{
+ color: #e41f39;
+ font-weight: bold;
+}
+.header-titulo hr{
+ width: 80%;
+ border-top: 3px solid #fff;
+ margin: auto;
+}
+
+.form{
+display: flex;
+margin: auto;
+width: 80%;
+}
+
+.input-group{
+ display: flex;
+ justify-content: center;
+ margin-top: 12.5px;
+}
+
+.input-group input{
+ align-content: center;
+ width: 45%;
+ border: 0;
+ margin: 1.5%;
+ padding: 10px;
+ border-radius: 5%;
+}
+
+input:focus{
+
+ box-shadow: 0 0 2px #ff334e;
+ border: 0.25px solid #ff334e;
+}
+.boton{
+ margin-top: 50px;
+}
+
+.boton button{
+ padding: 10px;
+ background-color: #e41f39;
+ border: 0;
+ color: #fff;
+ border-radius: 10px;
+ padding: 15px;
+ width: 50%;
+ font-size: 1rem;
+ font-weight: bold;
+ cursor: pointer;
+}
+.link{
+ color: #fff;
+ text-decoration: none;
+ font-weight: bold;
+}
+
+.input-group select{
+ width: 39%;
+ border: 0;
+ padding: 10px;
+ border-radius: 5%;
+ cursor: pointer;
+ margin: 2.5%;
+ background-color: white ;
+}
+.input-group option{
+ background-color: #e41f39;
+ color: white;
+}
+
+.boton button:hover{
+ background-color: #ff334e;
+
+}
+/*////////////////////////////
+////////INICIAR SESIÓN////////
+////////////////////////////*/
+
+.container-log-in{
+ width: 500px;
+ height: 350px;
+ background:rgba(36, 29, 29, 0.795);
+ margin: 70px auto 100px auto;
+ padding: 0 auto 20px auto;
+ border-radius: 10px;
+ box-shadow: 5px 5px 10px black;
+ text-align: center;
+ text-transform: uppercase;
+}
+
+
+.text-title{
+ letter-spacing: 0.2rem;
+ text-transform: uppercase;
+}
+
+
+.btn-cart{
+ text-transform: capitalize;
+ font-size: 1.4rem;
+ background: transparent;
+ border-radius: 10px;
+ padding: 10px 12px;
+ cursor: pointer;
+ margin: auto;
+ transition: all 0.5s ease-in-out;
+}
+
+/*////////////////////////////
+////////CARD PRODUCT    //////
+////////////////////////////*/
+
+.card{
+ border-color: transparent;
+ transition: all 1s linear;
+}
+
+.card-footer{
+ background: transparent;
+ border-top: transparent;
+}
+
+.img-container{
+ position: relative;
+ overflow: hidden;
+}
+.cart-btn-min{
+ position: absolute;
+ bottom: 0;
+ right: 0;
+ padding: 0.2rem 0.4rem;
+ background: var(--mainRed);
+ color: var(--mainWhite);
+ border: none;
+ font-size: 1.4rem;
+ border-radius: 0.5rem 0 0 0;
+}
+
+.nav-link i {
+ font-size: 1.5rem;
+}
+
+.agregar button {
+ background-color: var(--mainRed);
+ color: var(--mainWhite);
+ border: none;
+ width: 70%;
+ padding: 10px;
+ border-radius: 5%;
+}
+.text-title{
+ color: var(--mainRed);
+}
