@@ -1,58 +1,49 @@
-import React, { Component } from 'react'
-import firebase from '../config/firebase'
-import { withRouter } from 'react-router-dom';
+import React, {useState, useContext} from 'react';
+import { useHistory } from "react-router-dom";
+import {NetContext} from '../context/Context'
 import '../css/style.css'
 
-class Login extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        email:'',
-        password:''
-        }
-        this.inputRef = React.createRef()
-        this.handleSubmit = this.handleSubmit.bind(this)
-        this.handleChange = this.handleChange.bind(this)
-    }
-   
-    handleSubmit(e) {
-        e.preventDefault(); 
-        console.log(this.state);
-        let email = this.state.email;
-        let password = this.state.password;
+function Login({login}) {
+    const history = useHistory();
+    const context = useContext(NetContext)
+    const [form, setForm] = useState({user: '', password: ''});
+    const [errors, setError] = useState({user: '', password: ''});
+    const [loading, setLoading] = useState(false);
+  
+  const handleSubmit = (e) =>{
+        e.preventDefault();
+        console.log(form);
+        setLoading(true);
 
-        firebase.auth.signInWithEmailAndPassword(email, password)
-        .then((data) => {
-            console.log("Login")
-            localStorage.setItem('login', JSON.stringify(data.user))
-            const { history } = this.props;
-            history.push('/')
+        fetch('http://localhost:3000/login', {
+            method: 'POST',
+            headers: {
+                 'Content-type' : 'application/json'
+            },
+            body: JSON.stringify(form)
         })
-        .catch(error => {
-            console.log("Error", error)
-        });
+        .then(res => res.json())
+        .then(
+            (result) => {
+                console.log(result)
+                context.loginUser(JSON.stringify(result.token))
+                history.push('/')
+            },
+            (error) => {
+                console.log(error)
+                setLoading(false)
+            }
+        )
+
+    }
+
+       const handleChange = (e)=>{
+        setForm({
+            ...form,
+            [e.target.name]:e.target.value}
+        )
         e.preventDefault();
     }
-
-
-    handleChange(e){
-        const target = e.target;
-        const value = target.value;
-        const name = target.name;
-        this.setState ({
-            [name]: value 
-        })
-        e.preventDefault(); 
-    }
-
-    componentDidMount() {
-        this.inputRef.current.focus()
-        console.log(this.inputRef)
-    }
-
-
-
- render() {
   return (
    <div className="container-log-in">
      <div className="header-titulo">
@@ -60,27 +51,27 @@ class Login extends Component {
          <hr />
      </div>
      <div className="form">
-     <form onSubmit={this.handleSubmit}>  
+     <form onSubmit={handleSubmit}>  
          <div className="input-group" > 
              <input 
              type="text" 
-             name="email" 
+             name="user" 
              placeholder="Email" 
-             ref={this.inputRef}
-             value={this.state.email} 
-             onChange={this.handleChange}/>
+             value={form.user} 
+             onChange={handleChange}/>
 
              <input 
              type="password" 
              name="password" 
              placeholder="Contraseña" 
-             value={this.state.password} 
-             onChange={this.handleChange}/>
+             value={form.password} 
+             onChange={handleChange}/>
          </div>
          <div className="boton">
             <button 
             type="submit" 
             className="submit-btn">
+            
             ACCEDER
             </button>
        </div>
@@ -88,7 +79,6 @@ class Login extends Component {
      </div>
     </div>
     )
-  }
 }
 
-export default withRouter(Login)
+export default Login

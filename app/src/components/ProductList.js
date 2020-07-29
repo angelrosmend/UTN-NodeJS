@@ -1,30 +1,50 @@
-import React, {Fragment, Component } from 'react'
+import React, {Fragment, Component, useContext, useState } from 'react'
 import Product from './Product'
 import Title from './Title'
-import { ProductConsumer } from '../context/Context'
+import { GlobalConsumer, NetContext } from '../context/Context'
 
-export class ProductList extends Component {
+function ProductList () {
+
+ const context = useContext(NetContext)
+
+ if(context.login){
+
+ fetch('http://localhost:3000/products', {
+  method: 'GET',
+  headers: {
+       'Content-type' : 'application/json',
+       'x-access-token' : localStorage.getItem('token')
+  }
+})
+.then(res => res.json())
+.then(
+  (result) => {
+      console.log("result", result)
+  },
+  (error) => {
+
+  }
+ )
+}
  
- render() {
   return (
    <Fragment>
     <div className="py-5">
      <div className="container">
      <Title title="Nuestros libros en store" /> 
       <div className="row">
-       <ProductConsumer>
+       <GlobalConsumer>
         {value => {
          return value.products.map(product =>{
           return <Product key={product.id} product={product} />
          });
         }}
-       </ProductConsumer>
+       </GlobalConsumer>
       </div>
      </div>
     </div>
    </Fragment>
   )
  }
-}
 
 export default ProductList

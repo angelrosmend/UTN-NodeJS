@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import Title from '../components/Title'
 import ListaInfo from './cart/ListaInfo'
 import CarroVacio from './cart/CarroVacio'
-import { ProductConsumer } from '../context/Context'
+import { GlobalConsumer } from '../context/Context'
 import ListaCompras from './cart/ListaCompras'
 import Total from './cart/Total'
 
@@ -12,7 +12,7 @@ export class Cart extends Component {
  render() {
   return (
    <section>
-        <ProductConsumer>
+        <GlobalConsumer>
          {value =>{
           const {cart} = value;
           if (cart.length > 0) {
@@ -30,7 +30,7 @@ export class Cart extends Component {
            )
           }
          }}
-        </ProductConsumer>
+        </GlobalConsumer>
    </section>
   )
  }

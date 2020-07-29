@@ -8,6 +8,7 @@ module.exports={
  try{
   let saveUser  =  await userModel.create({
    name: req.body.name,
+   lastname:req.body.lastname,
    user: req.body.user,
    password: req.body.password
   })

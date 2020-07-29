@@ -1,5 +1,5 @@
 import React, {Fragment, Component} from 'react';
-import {BrowserRouter as Router,Switch, Route} from 'react-router-dom'
+import {BrowserRouter as Router,Switch, Route, Redirect} from 'react-router-dom'
 import Navbar from './components/Navbar'
 import ProductList from './components/ProductList'
 import  Cart  from './components/Cart'
@@ -9,27 +9,28 @@ import Login from './pages/Login'
 import Signup from './pages/Signup'
 import './css/style.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { ProductProvider } from './context/Context';
+import { GlobalState } from './context/Context';
 
 class App extends Component {
 
   render(){
   return (
-    <ProductProvider>
-        <Router>
+    <GlobalState>
+      <Router>
       <Fragment>
-      <Navbar />
-      <Switch>
+      <Navbar/>
+      <Redirect from={"/"} to={"/signup"}/>
+       <Switch>
         <Route exact path="/" component={ProductList}/>
         <Route path="/details" component={Detalle}/>
         <Route path="/cart" component={Cart}/>
         <Route path="/login" component={Login}/>
         <Route path="/signup" component={Signup}/>
         <Route component={Default}/>
-      </Switch>
-    </Fragment>
-    </Router>
-    </ProductProvider>
+       </Switch>
+      </Fragment>
+     </Router>
+    </GlobalState>
   );
   }
 }

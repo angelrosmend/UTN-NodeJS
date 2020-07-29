@@ -9,6 +9,11 @@ const Schema  = mongoose.Schema;
    trim: true,
    required: true
   },
+  lastname: {
+   type: String,
+   trim: true,
+   required: true
+  },
   user: {
    type: String,
    trim: true,

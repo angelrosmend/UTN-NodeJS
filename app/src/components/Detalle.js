@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import {ProductConsumer} from '../context/Context'
+import {GlobalConsumer} from '../context/Context'
 import '../css/style.css'
 export class Details extends Component {
  render() {
   return (
-   <ProductConsumer>
+   <GlobalConsumer>
     {(value) => {
      const {id, author, img, info, price, title, inCart
      } = value.detailProduct;
@@ -56,7 +56,7 @@ export class Details extends Component {
       </div>
      )
     }}
-   </ProductConsumer>
+   </GlobalConsumer>
   )
  }
 }

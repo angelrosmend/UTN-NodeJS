@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {Link} from 'react-router-dom'
 import '../css/style.css'
-import { ProductConsumer } from '../context/Context';
+import { GlobalConsumer } from '../context/Context';
 
 class Product extends Component {
 
@@ -12,7 +12,7 @@ class Product extends Component {
   return (
    <div className="product-wrapper col-9 mx-auto col-md-6 col-lg-3 my-3">
     <div className="card">
-   <ProductConsumer>
+   <GlobalConsumer>
      {value => (
         <div className="img-container p-5"
           onClick={()=> 
@@ -22,12 +22,11 @@ class Product extends Component {
           <img src={img} alt="product" className="card-img-top"></img>
          </Link>
          <button className="cart-btn-min"
-                 disabled={inCart ? true : false}
                  onClick={()=> {
                          value.addToCart(id);
                  }}
          >
-          {inCart ? (<p className="mb-0" disabled={inCart ? true : false}>
+          {inCart ? (<p className="mb-0">
            {" "}
            En carrito
            </p>):(<i className="fas fa-cart-plus" />
@@ -35,10 +34,7 @@ class Product extends Component {
          </button>
   </div>
 )}
-
-
-
-     </ProductConsumer>
+     </GlobalConsumer>
      <div className="card-footer d-flex justify-content-between">
      <p className="align-self-center mb-0">{title}</p>
      <h5 className="font-italic mb-0">
