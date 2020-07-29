@@ -1,62 +1,64 @@
 import React, { useState } from 'react'
 import { useHistory } from "react-router-dom"
 import '../css/style.css'
-import firebase from '../config/firebase'
 
 
-function Signup() {
+function Signup({data}) {
 
   const history = useHistory();
-
-  function handleClick(){
-      history.push("/signup")
-  }
-
   const [form, setForm] = useState({
-    nombre: '',
-    apellido: '',
-    email: '',
+    name: '',
+    lastname: '',
+    user: '',
     password: ''
-})
+  })
+  const [errors,setError] = useState({
+      name:'',
+      lastname: '',
+      user:'',
+      password:''})
+  const [loading,setLoading] = useState(false)
 
-  function handleSubmit(e) {
 
-     let email = form.email;
-     let password = form.password;
-     firebase.auth.createUserWithEmailAndPassword(email, password)
-     .then((data) =>{
-         console.log("Usuario creado", data.user.uid)
-         firebase.db.collection("usuarios").add({
-             nombre: form.nombre,
-             apellido: form.apellido,
-             email: form.email,
-             userId: data.user.uid
-         })
-         .then((data)=>{
-             console.log(data)
-             history.push('/')
-         })  
-         .catch((err)=>{
-            console.log(err)
-            alert(err)
-        })
-    })
-    .catch((error) => {
-        console.log("Error", error)
-        alert(alert)
-    })
-    e.preventDefault();
+
+  const handleSubmit = async(e) => {
+      console.log(form)
+
+      if(form.name === ''){
+          setError({
+              ...errors,
+              name: 'El nombre es obligatorio'
+          })
+      }
+      setLoading(true)
+
+      fetch('http://localhost:3000/signup',{
+          method: 'POST',
+          headers: {
+              'Content-type': 'application/json'
+          },
+          body: JSON.stringify(form)
+      })
+      .then(res => res.json())
+      .then(
+          (result)=>{
+          console.log(result)
+          history.push('/login')
+          setLoading(false)
+      },
+      (error) => {
+
+        }
+     )
+     e.preventDefault();
  }
 
- function handleChange(e){
 
-     const target = e.target;
-     const value = target.value;
-     const name = target.name;
+const handleChange = (e) =>{
 
      setForm({
          ...form,
-         [name]:value
+         [e.target.name]:e.target.value
      });
      e.preventDefault();
  }
@@ -66,26 +68,32 @@ function Signup() {
    <div className="container-sign-up">
      <div className="header-titulo">
          <h3>Registro</h3>
-         <hr />
+         <hr/>
      </div>
     <div className="form">
      <form onSubmit={handleSubmit}>
          <div className="input-group" > 
 
          <input  type="text" 
-                 name="nombre"   
+                 name="name"   
                  placeholder="Nombre"  
-                 value={form.nombre} 
+                 value={form.name} 
                  onChange={handleChange}/>
 
          <input  type="text" 
-                 name="apellido" 
+                 name="lastname" 
                  placeholder="Apellido" 
-                 value={form.apellido} 
+                 value={form.lastname} 
                  onChange={handleChange}/>
         </div>
 
         <div className="input-group" > 
+
+        <input type="text" 
+                 name="user" 
+                 placeholder="Email" 
+                 value={form.user} 
+                 onChange={handleChange}/>
 
         <input type="password" 
                name="password" 
@@ -93,19 +101,12 @@ function Signup() {
                value={form.password} 
                onChange={handleChange}/>
          
-
-          <input type="text" 
-                 name="email" 
-                 placeholder="Email" 
-                 value={form.email} 
-                 onChange={handleChange}/>
           </div>
     
 
          <div className="boton">
             <button type="submit"
-                    className="submit-btn" 
-                    onClick={handleClick}>
+                    className="submit-btn">
                         REGISTRARSE
             </button>        
          </div>

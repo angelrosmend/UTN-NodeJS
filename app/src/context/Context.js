@@ -1,17 +1,33 @@
 import React, { Component } from 'react'
 import { storeProducts, detailProduct} from '../data'
 
-const ProductContext = React.createContext();
+const NetContext = React.createContext({});
 
 
-class ProductProvider extends Component {
+class GlobalState extends Component {
 
  state = {
+  login: localStorage.getItem('login'),
   products: [],
   detailProduct: detailProduct,
   cart: [],
   total: 0
  };
+
+ loginUser = token => {
+   this.setState({
+     login: true
+   })
+   localStorage.setItem('token', token)
+   localStorage.setItem('login', this.state.login)
+  }
+
+  logoutUser = () => {
+    this.setState({
+      login: false
+    })
+    localStorage.removeItem('login')
+  }
 
  componentDidMount() {
   this.setProducts();
@@ -106,19 +122,22 @@ class ProductProvider extends Component {
 
  render() {
   return (
-   <ProductContext.Provider value={{
+   <NetContext.Provider value={{
     ...this.state,
+        login:this.state.login,
+        loginUser: this.loginUser,
+        logoutUser: this.logoutUser,
         handleDetail: this.handleDetail,
         addToCart: this.addToCart,
         eliminarItem: this.eliminarItem,
         limpiarLista: this.limpiarLista
    }}>
     {this.props.children}
-   </ProductContext.Provider>
+   </NetContext.Provider>
   )
  }
 }
 
-const ProductConsumer = ProductContext.Consumer;
+const GlobalConsumer = NetContext.Consumer;
 
-export {ProductProvider, ProductConsumer};
+export {NetContext, GlobalState, GlobalConsumer};
