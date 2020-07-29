@@ -13,7 +13,6 @@ getAll: async function(req, res, next) {
  }
  },
 
-
  getById: async function(req, res, next) {
   console.log(req.params)
   try{
