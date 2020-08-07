@@ -11,8 +11,8 @@ import './css/style.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { GlobalState } from './context/Context';
 
-class App extends Component {
 
+class App extends Component {
   render(){
   return (
     <GlobalState>
