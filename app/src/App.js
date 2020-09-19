@@ -31,6 +31,7 @@ class App extends Component {
        </Switch>
       </Fragment>
      </Router>
+    
     </GlobalState>
   );
   }
